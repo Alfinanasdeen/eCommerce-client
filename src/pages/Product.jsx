@@ -7,14 +7,10 @@ import Newsletter from "../components/Newsletter.jsx";
 import { mobile } from "../responsive.js";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { publicRequest } from "../requestMethods.js";
+import axios from "axios"; // Import axios to make API requests
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
-import {
-  electronics,
 
-  // Import other categories as needed
-} from "../catagory_data.js";
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -52,40 +48,6 @@ const Price = styled.span`
   font-weight: 100;
   font-size: 40px;
 `;
-
-const FilterContainer = styled.div`
-  width: 50%;
-  margin: 30px 0px;
-  display: flex;
-  justify-content: space-between;
-  ${mobile({ width: "100%" })}
-`;
-
-const Filter = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const FilterTitle = styled.span`
-  font-size: 20px;
-  font-weight: 200;
-`;
-
-const FilterColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-  margin: 0px 5px;
-  cursor: pointer;
-`;
-
-const FilterSize = styled.select`
-  margin-left: 10px;
-  padding: 5px;
-`;
-
-const FilterSizeOption = styled.option``;
 
 const AddContainer = styled.div`
   width: 50%;
@@ -132,21 +94,18 @@ const Product = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Function to find the product in category_data
-    const findProduct = () => {
-      const allCategories = { electronics }; // Add other categories here
-      for (const category in allCategories) {
-        const foundProduct = allCategories[category].find(
-          (item) => item.id === parseInt(id)
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`
         );
-        if (foundProduct) {
-          setProduct(foundProduct);
-          break; // Stop searching once we find the product
-        }
+        setProduct(response.data);
+      } catch (err) {
+        console.error("Error fetching product:", err);
       }
     };
 
-    findProduct();
+    fetchProduct();
   }, [id]);
 
   const handleQuantity = (type) => {
@@ -158,8 +117,9 @@ const Product = () => {
   };
 
   const handleClick = () => {
-    dispatch(addProduct({ ...product, quantity, color, size }));
+    dispatch(addProduct({ ...product, quantity }));
   };
+
   return (
     <Container>
       <Navbar />

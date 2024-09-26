@@ -78,6 +78,7 @@ const Login = () => {
   const [isFetching, setIsFetching] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const handleClick = async (e) => {
     e.preventDefault();
     setIsFetching(true);
@@ -96,7 +97,16 @@ const Login = () => {
 
       dispatch(loginSuccess(response.data.user));
 
-      navigate("/");
+      console.log("User type:", response.data.user.userType);
+
+    // Check user type and navigate accordingly
+    if (response.data.user.userType === "Admin") {
+      console.log("Navigating to Admin Page");
+      navigate("/admin"); // Admin route
+    } else {
+      console.log("Navigating to User Home");
+      navigate("/"); // User home
+    }
     } catch (err) {
       console.error("Login failed:", err.response?.data.message);
       setError(err.response?.data.message || "Login failed!");

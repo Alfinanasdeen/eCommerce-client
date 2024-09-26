@@ -75,6 +75,8 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [userType, setUserType] = useState("");
+  const [secretKey, setSecretKey] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -87,6 +89,11 @@ const Register = () => {
       return;
     }
 
+    if (userType === "Admin" && secretKey !== "AdarshT") { // Replace with your secret key logic
+      setError("Invalid Admin secret key!");
+      return;
+    }
+
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_API_BASE_URL}/api/signup`,
@@ -94,6 +101,7 @@ const Register = () => {
           username,
           email,
           password,
+          userType,
         }
       );
       console.log("Signup successful:", response.data);
@@ -136,6 +144,34 @@ const Register = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
+          <div>
+            <label>
+              <input
+                type="radio"
+                name="userType"
+                value="User"
+                onChange={(e) => setUserType(e.target.value)}
+              />
+              User
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="userType"
+                value="Admin"
+                onChange={(e) => setUserType(e.target.value)}
+              />
+              Admin
+            </label>
+          </div>
+          {userType === "Admin" && (
+            <Input
+              placeholder="Secret Key"
+              value={secretKey}
+              onChange={(e) => setSecretKey(e.target.value)}
+              required
+            />
+          )}
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>

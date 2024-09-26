@@ -7,10 +7,14 @@ import Newsletter from "../components/Newsletter.jsx";
 import { mobile } from "../responsive.js";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios"; // Import axios to make API requests
+//import { publicRequest } from "../requestMethods.js";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import {
+  electronics,
 
+  // Import other categories as needed
+} from "../catagory_data.js";
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -94,18 +98,21 @@ const Product = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`
+    // Function to find the product in category_data
+    const findProduct = () => {
+      const allCategories = { electronics }; // Add other categories here
+      for (const category in allCategories) {
+        const foundProduct = allCategories[category].find(
+          (item) => item.id === parseInt(id)
         );
-        setProduct(response.data);
-      } catch (err) {
-        console.error("Error fetching product:", err);
+        if (foundProduct) {
+          setProduct(foundProduct);
+          break; // Stop searching once we find the product
+        }
       }
     };
 
-    fetchProduct();
+    findProduct();
   }, [id]);
 
   const handleQuantity = (type) => {
@@ -119,7 +126,6 @@ const Product = () => {
   const handleClick = () => {
     dispatch(addProduct({ ...product, quantity }));
   };
-
   return (
     <Container>
       <Navbar />

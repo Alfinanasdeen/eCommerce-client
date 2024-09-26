@@ -45,12 +45,12 @@ const ProductList = () => {
   const [filters, setFilters] = useState({});
   const query = new URLSearchParams(location.search);
   const search = query.get("search") || "";
-  const [token, setToken] = useState(null); // State to hold the token
+  const [token, setToken] = useState(null); 
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    console.log("Stored Tokenaaaaaaaaaaaa:", storedToken); // Log to verify token retrieval
-    setToken(storedToken); // Set the token state
+    console.log("Stored Tokenaaaaaaaaaaaa:", storedToken); 
+    setToken(storedToken); 
   }, []);
 
   const getFilterOptions = (category) => {

@@ -20,7 +20,7 @@ const App = () => {
   const user = useSelector((state) => state.user.currentUser);
   const userType = user?.userType;
 
-  // Function to check if the user is admin
+
   const isAdmin = userType === "Admin";
 
   return (

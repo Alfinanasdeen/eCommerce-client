@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Product from "./Product.jsx"; // Ensure this path is correct
+import Product from "./Product.jsx"; 
 import axios from "axios";
 
 const Container = styled.div`
@@ -18,9 +18,9 @@ const Products = ({ cat, filters = {}, token }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       if (!token) {
-        console.error("No token provided."); // Ensure there's a token
+        console.error("No token provided."); 
         setLoading(false);
-        return; // Exit if no token
+        return; 
       }
 
       try {
@@ -28,7 +28,7 @@ const Products = ({ cat, filters = {}, token }) => {
           `${import.meta.env.VITE_API_BASE_URL}/api/products?category=${cat}`,
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Include the token in the headers
+              Authorization: `Bearer ${token}`, 
             },
           }
         );
@@ -43,12 +43,12 @@ const Products = ({ cat, filters = {}, token }) => {
     fetchProducts();
   }, [cat, token]);
 
-  // Filter products based on the fetched data and applied filters
+
   const filteredProducts = products.filter((item) => {
     const categoryMatch = item.categories.includes(cat);
 
     const filterMatches = Object.keys(filters).every((key) => {
-      return item.filters && item.filters[key] === filters[key]; // Ensure filters exist
+      return item.filters && item.filters[key] === filters[key]; 
     });
 
     return categoryMatch && filterMatches;

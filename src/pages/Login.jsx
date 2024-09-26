@@ -99,13 +99,13 @@ const Login = () => {
 
       console.log("User type:", response.data.user.userType);
 
-    // Check user type and navigate accordingly
+  
     if (response.data.user.userType === "Admin") {
       console.log("Navigating to Admin Page");
-      navigate("/admin"); // Admin route
+      navigate("/admin"); 
     } else {
       console.log("Navigating to User Home");
-      navigate("/"); // User home
+      navigate("/"); 
     }
     } catch (err) {
       console.error("Login failed:", err.response?.data.message);

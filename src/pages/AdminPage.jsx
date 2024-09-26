@@ -8,7 +8,7 @@ const AdminPage = () => {
         <li>
           <Link to="/admin/add-product">Add New Product</Link>
         </li>
-        {/* Other admin functionalities like View Users, Manage Orders */}
+       
       </ul>
     </div>
   );

@@ -89,7 +89,7 @@ const Register = () => {
       return;
     }
 
-    if (userType === "Admin" && secretKey !== "AdarshT") { // Replace with your secret key logic
+    if (userType === "Admin" && secretKey !== "AdarshT") { 
       setError("Invalid Admin secret key!");
       return;
     }

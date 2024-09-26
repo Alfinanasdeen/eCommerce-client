@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"; // Import useEffect and useState
+import { useEffect, useState } from "react"; 
 import {
   FavoriteBorderOutlined,
   SearchOutlined,
@@ -69,13 +69,13 @@ const Icon = styled.div`
 `;
 
 const Product = ({ item }) => {
-  const [token, setToken] = useState(null); // State to hold the token
+  const [token, setToken] = useState(null); 
 
   useEffect(() => {
-    const storedToken = localStorage.getItem("token"); // Retrieve the token
-    console.log("Stored Token im pro:", storedToken); // Log the token to verify
-    setToken(storedToken); // Set the token state
-  }, []); // Only run once on component mount
+    const storedToken = localStorage.getItem("token");
+    console.log("Stored Token im pro:", storedToken);
+    setToken(storedToken); 
+  }, []); 
 
   // Example usage of token
   const handleAddToCart = () => {

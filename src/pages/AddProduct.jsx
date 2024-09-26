@@ -52,7 +52,6 @@ const AddProduct = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [filters, setFilters] = useState({});
 
-  // Category list
   const categoriesList = [
     "electronics",
     "fashion",
@@ -68,18 +67,15 @@ const AddProduct = () => {
     "gardening",
   ];
 
-  // Handle category change
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
-    setFilters({}); // Reset filters when category changes
+    setFilters({});
   };
 
-  // Handle filter change
   const handleFilterChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
-  // Handle form submit
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -90,15 +86,18 @@ const AddProduct = () => {
     };
     console.log("Submitting new product:", newProduct);
 
-    // Replace 'YOUR_TOKEN_HERE' with the actual token retrieval method
-    const token = localStorage.getItem("token"); // Example: retrieving token from localStorage
+    const token = localStorage.getItem("token");
 
     try {
-      await axios.post("http://localhost:3001/api/products", newProduct, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/products`,
+        newProduct,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       alert("Product added successfully");
       window.location.href = `/products/${selectedCategory}`;
     } catch (error) {
@@ -109,7 +108,7 @@ const AddProduct = () => {
     }
   };
 
-  // Function to get filter options based on category
+ 
   const getFilterOptions = (category) => {
     switch (category) {
       case "electronics":

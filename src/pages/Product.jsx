@@ -88,21 +88,21 @@ const Button = styled.button`
 
 const Product = () => {
   const location = useLocation();
-  const category = location.pathname.split("/")[2]; // Get category from the URL
+  const category = location.pathname.split("/")[2]; 
   const [products, setProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const token = localStorage.getItem("token"); // Retrieve the token
+      const token = localStorage.getItem("token"); 
 
       try {
         const res = await axios.get(
           `http://localhost:3001/api/products?category=${category}`,
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Add token to headers
+              Authorization: `Bearer ${token}`, 
             },
           }
         );

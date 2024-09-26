@@ -70,7 +70,14 @@ const StyledLink = styled(RouterLink)`
 const Error = styled.span`
   color: red;
 `;
-
+const CredentialBox = styled.div`
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+`;
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -99,14 +106,13 @@ const Login = () => {
 
       console.log("User type:", response.data.user.userType);
 
-  
-    if (response.data.user.userType === "Admin") {
-      console.log("Navigating to Admin Page");
-      navigate("/admin"); 
-    } else {
-      console.log("Navigating to User Home");
-      navigate("/"); 
-    }
+      if (response.data.user.userType === "Admin") {
+        console.log("Navigating to Admin Page");
+        navigate("/admin");
+      } else {
+        console.log("Navigating to User Home");
+        navigate("/");
+      }
     } catch (err) {
       console.error("Login failed:", err.response?.data.message);
       setError(err.response?.data.message || "Login failed!");
@@ -120,6 +126,10 @@ const Login = () => {
     <Container>
       <Wrapper>
         <Title>SIGN IN</Title>
+        <CredentialBox>
+          If you want to enter as an admin, register as admin by using secret
+          key as &apos;Admin_secret_key&apos; .
+        </CredentialBox>
         <Form onSubmit={handleClick}>
           <Input
             placeholder="email"

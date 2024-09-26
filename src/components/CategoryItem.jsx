@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { mobile } from "../responsive.js";
+import PropTypes from "prop-types";
 
 const Container = styled.div`
   flex: 1;
@@ -54,6 +55,14 @@ const CategoryItem = ({ item }) => {
       </Link>
     </Container>
   );
+};
+
+CategoryItem.propTypes = {
+  item: PropTypes.shape({
+    cat: PropTypes.string,
+    img: PropTypes.string,
+    title: PropTypes.string,
+  }),
 };
 
 export default CategoryItem;

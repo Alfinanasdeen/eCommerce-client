@@ -2,8 +2,17 @@ import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
-const Container = styled.div`
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  justify-content: center;
   padding: 20px;
+`;
+
+const Container = styled.div`
+  width: 500px;
 `;
 
 const Form = styled.form`
@@ -108,7 +117,6 @@ const AddProduct = () => {
     }
   };
 
- 
   const getFilterOptions = (category) => {
     switch (category) {
       case "electronics":
@@ -326,57 +334,59 @@ const AddProduct = () => {
   };
 
   return (
-    <Container>
-      <h1>Add New Product</h1>
-      <Form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          placeholder="Title"
-          value={product.title}
-          onChange={(e) => setProduct({ ...product, title: e.target.value })}
-          required
-        />
-        <Input
-          type="text"
-          placeholder="Description"
-          value={product.desc}
-          onChange={(e) => setProduct({ ...product, desc: e.target.value })}
-          required
-        />
-        <Input
-          type="text"
-          placeholder="Image URL"
-          value={product.img}
-          onChange={(e) => setProduct({ ...product, img: e.target.value })}
-          required
-        />
-        <Input
-          type="number"
-          placeholder="Price"
-          value={product.price}
-          onChange={(e) => setProduct({ ...product, price: e.target.value })}
-          required
-        />
-        <label>Category:</label>
-        <Select
-          value={selectedCategory}
-          onChange={handleCategoryChange}
-          required
-        >
-          <Option value="">Select Category</Option>
-          {categoriesList.map((category) => (
-            <Option key={category} value={category}>
-              {category}
-            </Option>
-          ))}
-        </Select>
+    <Wrapper>
+      <Container>
+        <h1 style={{ marginBottom: "15px" }}>Add New Product</h1>
+        <Form onSubmit={handleSubmit}>
+          <Input
+            type="text"
+            placeholder="Title"
+            value={product.title}
+            onChange={(e) => setProduct({ ...product, title: e.target.value })}
+            required
+          />
+          <Input
+            type="text"
+            placeholder="Description"
+            value={product.desc}
+            onChange={(e) => setProduct({ ...product, desc: e.target.value })}
+            required
+          />
+          <Input
+            type="text"
+            placeholder="Image URL"
+            value={product.img}
+            onChange={(e) => setProduct({ ...product, img: e.target.value })}
+            required
+          />
+          <Input
+            type="number"
+            placeholder="Price"
+            value={product.price}
+            onChange={(e) => setProduct({ ...product, price: e.target.value })}
+            required
+          />
+          <label>Category:</label>
+          <Select
+            value={selectedCategory}
+            onChange={handleCategoryChange}
+            required
+          >
+            <Option value="">Select Category</Option>
+            {categoriesList.map((category) => (
+              <Option key={category} value={category}>
+                {category}
+              </Option>
+            ))}
+          </Select>
 
-        {/* Render filters based on selected category */}
-        {getFilterOptions(selectedCategory)}
+          {/* Render filters based on selected category */}
+          {getFilterOptions(selectedCategory)}
 
-        <Button type="submit">Add Product</Button>
-      </Form>
-    </Container>
+          <Button type="submit">Add Product</Button>
+        </Form>
+      </Container>
+    </Wrapper>
   );
 };
 

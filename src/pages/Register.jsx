@@ -69,7 +69,14 @@ const StyledLink = styled(Link)`
   color: black;
   cursor: pointer;
 `;
-
+const CredentialBox = styled.div`
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+`;
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -89,7 +96,7 @@ const Register = () => {
       return;
     }
 
-    if (userType === "Admin" && secretKey !== "AdarshT") { 
+    if (userType === "Admin" && secretKey !== "Admin_secret_key") {
       setError("Invalid Admin secret key!");
       return;
     }
@@ -116,6 +123,10 @@ const Register = () => {
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
+        <CredentialBox>
+          If you want to enter as an admin, register as admin by using secret
+          key as &apos;Admin_secret_key&apos; .
+        </CredentialBox>
         <Form onSubmit={handleSubmit}>
           <Input
             placeholder="username"

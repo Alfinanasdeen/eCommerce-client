@@ -49,7 +49,6 @@ const ProductList = () => {
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    console.log("Stored Tokenaaaaaaaaaaaa:", storedToken); 
     setToken(storedToken); 
   }, []);
 

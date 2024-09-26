@@ -88,21 +88,21 @@ const Button = styled.button`
 
 const Product = () => {
   const location = useLocation();
-  const id = location.pathname.split("/")[2]; // Extract the product ID from the URL
+  const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const token = localStorage.getItem("token"); // Fetch the token from local storage
+      const token = localStorage.getItem("token");
 
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/api/products/find/${id}`, // Fetch the product by ID
+          `${import.meta.env.VITE_API_BASE_URL}/api/products/find/${id}`, 
           {
             headers: {
-              Authorization: `Bearer ${token}`, // Pass token in the headers if required
+              Authorization: `Bearer ${token}`, 
             },
           }
         );

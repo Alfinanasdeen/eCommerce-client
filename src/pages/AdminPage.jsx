@@ -6,7 +6,7 @@ const AdminPage = () => {
       <h1>Admin Dashboard</h1>
       <ul>
         <li>
-          <Link to="/admin/add-product">Add New Product</Link>
+          <Link to="/admin/add-product">Add New Product</Link> <br></br>
         </li>
        
       </ul>

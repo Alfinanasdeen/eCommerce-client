@@ -20,7 +20,6 @@ const App = () => {
   const user = useSelector((state) => state.user.currentUser);
   const userType = user?.userType;
 
-
   const isAdmin = userType === "Admin";
 
   return (
@@ -34,8 +33,8 @@ const App = () => {
         {user && !isAdmin && (
           <>
             <Route path="/" element={<Home />} />
-            <Route path="/products/:category" element={<ProductList />} />
             <Route path="/products" element={<ProductList />} />
+            <Route path="/products/:category" element={<ProductList />} />
             <Route path="/product/:id" element={<Product />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="*" element={<Navigate to="/" />} />
@@ -48,6 +47,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/admin/add-product" element={<AddProduct />} />
+            {/* <Route path="/admin/products" element={<AdminProducts />} /> */}
             <Route path="/products/:category" element={<ProductList />} />
             <Route path="/products" element={<ProductList />} />
             <Route path="/product/:id" element={<Product />} />

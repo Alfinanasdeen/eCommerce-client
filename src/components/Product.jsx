@@ -6,6 +6,7 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import PropTypes from "prop-types"; 
 
 const Info = styled.div`
   opacity: 0;
@@ -77,10 +78,9 @@ const Product = ({ item }) => {
     setToken(storedToken); 
   }, []); 
 
-  // Example usage of token
+  
   const handleAddToCart = () => {
     if (token) {
-      // Logic to add the item to the cart using the token
       console.log("Adding to cart:", item, "with token:", token);
     } else {
       console.log("No token available. Cannot add to cart.");
@@ -106,6 +106,14 @@ const Product = ({ item }) => {
       </Info>
     </Container>
   );
+};
+
+Product.propTypes = {
+  item: PropTypes.shape({
+    _id: PropTypes.string, 
+    img: PropTypes.string, 
+    title: PropTypes.string, 
+  }),
 };
 
 export default Product;

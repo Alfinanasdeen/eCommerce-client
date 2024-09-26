@@ -1,12 +1,12 @@
-import { Add, Remove } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
+//import { Add, Remove } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive.js";
-import { useEffect, useState } from "react";
-import { adjustQuantity } from "../redux/cartRedux.js";
+//import { useEffect, useState } from "react";
+//import { adjustQuantity } from "../redux/cartRedux.js";
 
 const Container = styled.div``;
 
@@ -25,16 +25,6 @@ const Top = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 20px;
-`;
-
-const TopButton = styled.button`
-  padding: 10px;
-  font-weight: 600;
-  cursor: pointer;
-  border: ${(props) => props.type === "filled" && "none"};
-  background-color: ${(props) =>
-    props.type === "filled" ? "black" : "transparent"};
-  color: ${(props) => props.type === "filled" && "white"};
 `;
 
 const TopTexts = styled.div`
@@ -84,17 +74,6 @@ const Details = styled.div`
 `;
 
 const ProductName = styled.span``;
-
-const ProductId = styled.span``;
-
-const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-`;
-
-const ProductSize = styled.span``;
 
 const PriceDetail = styled.div`
   flex: 1;
@@ -163,16 +142,16 @@ const Button = styled.button`
 // Cart Component
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const handleQuantityChange = (id, type) => {
-    const product = cart.products.find((product) => product._id === id);
-    if (type === "inc") {
-      dispatch(adjustQuantity({ id, quantity: product.quantity + 1 }));
-    } else if (type === "dec" && product.quantity > 1) {
-      dispatch(adjustQuantity({ id, quantity: product.quantity - 1 }));
-    }
-  };
+  // const handleQuantityChange = (id, type) => {
+  //   const product = cart.products.find((product) => product._id === id);
+  //   if (type === "inc") {
+  //     dispatch(adjustQuantity({ id, quantity: product.quantity + 1 }));
+  //   } else if (type === "dec" && product.quantity > 1) {
+  //     dispatch(adjustQuantity({ id, quantity: product.quantity - 1 }));
+  //   }
+  // };
   return (
     <Container>
       <Navbar />
@@ -206,6 +185,7 @@ const Cart = () => {
                 </PriceDetail>
               </Product>
             ))}
+            <Hr />
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>

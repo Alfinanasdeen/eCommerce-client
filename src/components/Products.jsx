@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import Product from "./Product.jsx"; 
+import Product from "./Product.jsx";
 import axios from "axios";
+import PropTypes from "prop-types";
 
 const Container = styled.div`
   padding: 20px;
@@ -11,27 +12,27 @@ const Container = styled.div`
 `;
 
 const Products = ({ cat, filters = {}, token }) => {
-  console.log("Received Token in Products:", token);
+  
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       if (!token) {
-        console.error("No token provided."); 
         setLoading(false);
-        return; 
+        return;
       }
 
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/api/products?category=${cat}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, 
-            },
-          }
-        );
+        const url = cat
+          ? `${import.meta.env.VITE_API_BASE_URL}/api/products?category=${cat}`
+          : `${import.meta.env.VITE_API_BASE_URL}/api/products`; 
+
+        const response = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -43,12 +44,10 @@ const Products = ({ cat, filters = {}, token }) => {
     fetchProducts();
   }, [cat, token]);
 
-
   const filteredProducts = products.filter((item) => {
     const categoryMatch = item.categories.includes(cat);
-
     const filterMatches = Object.keys(filters).every((key) => {
-      return item.filters && item.filters[key] === filters[key]; 
+      return item.filters && item.filters[key] === filters[key];
     });
 
     return categoryMatch && filterMatches;
@@ -65,6 +64,12 @@ const Products = ({ cat, filters = {}, token }) => {
       )}
     </Container>
   );
+};
+
+Products.propTypes = {
+  cat: PropTypes.string,
+  filters: PropTypes.object,
+  token: PropTypes.string,
 };
 
 export default Products;

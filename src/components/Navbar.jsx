@@ -94,15 +94,14 @@ const categories = [
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState(""); // State for selected category
+  const [selectedCategory, setSelectedCategory] = useState("");
   const navigate = useNavigate();
 
-  // Handle category change and update the selectedCategory state
   const handleCategoryChange = (e) => {
     const category = e.target.value;
-    setSelectedCategory(category); // Set the selected category
+    setSelectedCategory(category);
     if (category) {
-      navigate(`/products/${category}`); // Redirect to the category
+      navigate(`/products/${category}`);
     }
   };
 
@@ -143,8 +142,6 @@ const Navbar = () => {
               </option>
             ))}
           </Select>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">

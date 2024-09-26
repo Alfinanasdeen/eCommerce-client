@@ -20,7 +20,6 @@ const Categories = () => {
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token"); 
-    console.log("Stored Token:", storedToken); 
     setToken(storedToken); 
   }, []); 
 

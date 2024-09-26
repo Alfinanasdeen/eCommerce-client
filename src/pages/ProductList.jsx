@@ -6,7 +6,7 @@ import Newsletter from "../components/Newsletter.jsx";
 import Footer from "../components/Footer.jsx";
 import { mobile } from "../responsive.js";
 import { useLocation } from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Container = styled.div``;
 
@@ -41,10 +41,17 @@ const Option = styled.option``;
 
 const ProductList = () => {
   const location = useLocation();
-  const cat = location.pathname.split("/")[2]; 
+  const cat = location.pathname.split("/")[2];
   const [filters, setFilters] = useState({});
   const query = new URLSearchParams(location.search);
   const search = query.get("search") || "";
+  const [token, setToken] = useState(null); // State to hold the token
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    console.log("Stored Tokenaaaaaaaaaaaa:", storedToken); // Log to verify token retrieval
+    setToken(storedToken); // Set the token state
+  }, []);
 
   const getFilterOptions = (category) => {
     switch (category) {
@@ -250,7 +257,7 @@ const ProductList = () => {
           </>
         );
       default:
-        return null; 
+        return null;
     }
   };
 
@@ -273,7 +280,7 @@ const ProductList = () => {
           {getFilterOptions(cat)}{" "}
         </Filter>
       </FilterContainer>
-      <Products cat={cat} filters={filters} search={search} />
+      <Products cat={cat} filters={filters} search={search} token={token} />
       <Newsletter />
       <Footer />
     </Container>

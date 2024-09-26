@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"; // Import useEffect and useState
 import {
   FavoriteBorderOutlined,
   SearchOutlined,
@@ -68,16 +69,34 @@ const Icon = styled.div`
 `;
 
 const Product = ({ item }) => {
+  const [token, setToken] = useState(null); // State to hold the token
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token"); // Retrieve the token
+    console.log("Stored Token im pro:", storedToken); // Log the token to verify
+    setToken(storedToken); // Set the token state
+  }, []); // Only run once on component mount
+
+  // Example usage of token
+  const handleAddToCart = () => {
+    if (token) {
+      // Logic to add the item to the cart using the token
+      console.log("Adding to cart:", item, "with token:", token);
+    } else {
+      console.log("No token available. Cannot add to cart.");
+    }
+  };
+
   return (
     <Container>
       <Circle />
       <Image src={item.img} />
       <Info>
-        <Icon>
+        <Icon onClick={handleAddToCart}>
           <ShoppingCartOutlined />
         </Icon>
         <Icon>
-          <Link to={`/product/${item.id}`}>
+          <Link to={`/product/${item._id}`}>
             <SearchOutlined />
           </Link>
         </Icon>

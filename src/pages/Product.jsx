@@ -7,14 +7,10 @@ import Newsletter from "../components/Newsletter.jsx";
 import { mobile } from "../responsive.js";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
-//import { publicRequest } from "../requestMethods.js";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
-import {
-  electronics,
+import axios from "axios";
 
-  // Import other categories as needed
-} from "../catagory_data.js";
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -92,28 +88,31 @@ const Button = styled.button`
 
 const Product = () => {
   const location = useLocation();
-  const id = location.pathname.split("/")[2];
-  const [product, setProduct] = useState({});
+  const category = location.pathname.split("/")[2]; // Get category from the URL
+  const [products, setProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // Function to find the product in category_data
-    const findProduct = () => {
-      const allCategories = { electronics }; // Add other categories here
-      for (const category in allCategories) {
-        const foundProduct = allCategories[category].find(
-          (item) => item.id === parseInt(id)
+    const fetchProducts = async () => {
+      const token = localStorage.getItem("token"); // Retrieve the token
+
+      try {
+        const res = await axios.get(
+          `http://localhost:3001/api/products?category=${category}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Add token to headers
+            },
+          }
         );
-        if (foundProduct) {
-          setProduct(foundProduct);
-          break; // Stop searching once we find the product
-        }
+        setProducts(res.data);
+      } catch (err) {
+        console.error("Failed to fetch products:", err);
       }
     };
-
-    findProduct();
-  }, [id]);
+    fetchProducts();
+  }, [category]);
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -123,30 +122,44 @@ const Product = () => {
     }
   };
 
-  const handleClick = () => {
+  const handleClick = (product) => {
     dispatch(addProduct({ ...product, quantity }));
   };
+
   return (
     <Container>
       <Navbar />
       <Announcement />
       <Wrapper>
-        <ImgContainer>
-          <Image src={product.img} />
-        </ImgContainer>
-        <InfoContainer>
-          <Title>{product.title}</Title>
-          <Desc>{product.desc}</Desc>
-          <Price>$ {product.price}</Price>
-          <AddContainer>
-            <AmountContainer>
-              <Remove onClick={() => handleQuantity("dec")} />
-              <Amount>{quantity}</Amount>
-              <Add onClick={() => handleQuantity("inc")} />
-            </AmountContainer>
-            <Button onClick={handleClick}>ADD TO CART</Button>
-          </AddContainer>
-        </InfoContainer>
+        {products.length > 0 ? (
+          products.map((product) => (
+            <div
+              key={product._id}
+              style={{ display: "flex", marginBottom: "20px" }}
+            >
+              <ImgContainer>
+                <Image src={product.img} alt={product.title} />
+              </ImgContainer>
+              <InfoContainer>
+                <Title>{product.title}</Title>
+                <Desc>{product.desc}</Desc>
+                <Price>$ {product.price}</Price>
+                <AddContainer>
+                  <AmountContainer>
+                    <Remove onClick={() => handleQuantity("dec")} />
+                    <Amount>{quantity}</Amount>
+                    <Add onClick={() => handleQuantity("inc")} />
+                  </AmountContainer>
+                  <Button onClick={() => handleClick(product)}>
+                    ADD TO CART
+                  </Button>
+                </AddContainer>
+              </InfoContainer>
+            </div>
+          ))
+        ) : (
+          <h2>No products found in this category.</h2>
+        )}
       </Wrapper>
       <Newsletter />
       <Footer />

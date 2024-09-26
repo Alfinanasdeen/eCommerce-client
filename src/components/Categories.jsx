@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react"; // Import useEffect and useState
 import styled from "styled-components";
 import { categories } from "../data.js";
 import { mobile } from "../responsive.js";
@@ -15,10 +16,18 @@ const Container = styled.div`
 `;
 
 const Categories = () => {
+  const [token, setToken] = useState(null); // State to hold the token
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token"); // Retrieve the token from local storage
+    console.log("Stored Token:", storedToken); // Log the token to verify
+    setToken(storedToken); // Set the token state
+  }, []); // Empty dependency array means this runs once on mount
+
   return (
     <Container>
       {categories.map((item) => (
-        <CategoryItem item={item} key={item.id} />
+        <CategoryItem item={item} key={item.id} token={token} /> // Pass the token to CategoryItem
       ))}
     </Container>
   );

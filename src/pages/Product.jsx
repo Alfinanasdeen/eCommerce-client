@@ -88,31 +88,31 @@ const Button = styled.button`
 
 const Product = () => {
   const location = useLocation();
-  const category = location.pathname.split("/")[2]; 
-  const [products, setProducts] = useState([]);
+  const id = location.pathname.split("/")[2]; // Extract the product ID from the URL
+  const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const token = localStorage.getItem("token"); 
+    const fetchProduct = async () => {
+      const token = localStorage.getItem("token"); // Fetch the token from local storage
 
       try {
         const res = await axios.get(
-          `http://localhost:3001/api/products?category=${category}`,
+          `${import.meta.env.VITE_API_BASE_URL}/api/products/find/${id}`, // Fetch the product by ID
           {
             headers: {
-              Authorization: `Bearer ${token}`, 
+              Authorization: `Bearer ${token}`, // Pass token in the headers if required
             },
           }
         );
-        setProducts(res.data);
+        setProduct(res.data);
       } catch (err) {
-        console.error("Failed to fetch products:", err);
+        console.error("Failed to fetch product:", err);
       }
     };
-    fetchProducts();
-  }, [category]);
+    fetchProduct();
+  }, [id]);
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -122,7 +122,7 @@ const Product = () => {
     }
   };
 
-  const handleClick = (product) => {
+  const handleClick = () => {
     dispatch(addProduct({ ...product, quantity }));
   };
 
@@ -131,34 +131,27 @@ const Product = () => {
       <Navbar />
       <Announcement />
       <Wrapper>
-        {products.length > 0 ? (
-          products.map((product) => (
-            <div
-              key={product._id}
-              style={{ display: "flex", marginBottom: "20px" }}
-            >
-              <ImgContainer>
-                <Image src={product.img} alt={product.title} />
-              </ImgContainer>
-              <InfoContainer>
-                <Title>{product.title}</Title>
-                <Desc>{product.desc}</Desc>
-                <Price>$ {product.price}</Price>
-                <AddContainer>
-                  <AmountContainer>
-                    <Remove onClick={() => handleQuantity("dec")} />
-                    <Amount>{quantity}</Amount>
-                    <Add onClick={() => handleQuantity("inc")} />
-                  </AmountContainer>
-                  <Button onClick={() => handleClick(product)}>
-                    ADD TO CART
-                  </Button>
-                </AddContainer>
-              </InfoContainer>
-            </div>
-          ))
+        {product ? (
+          <>
+            <ImgContainer>
+              <Image src={product.img} alt={product.title} />
+            </ImgContainer>
+            <InfoContainer>
+              <Title>{product.title}</Title>
+              <Desc>{product.desc}</Desc>
+              <Price>$ {product.price}</Price>
+              <AddContainer>
+                <AmountContainer>
+                  <Remove onClick={() => handleQuantity("dec")} />
+                  <Amount>{quantity}</Amount>
+                  <Add onClick={() => handleQuantity("inc")} />
+                </AmountContainer>
+                <Button onClick={handleClick}>ADD TO CART</Button>
+              </AddContainer>
+            </InfoContainer>
+          </>
         ) : (
-          <h2>No products found in this category.</h2>
+          <h2>Product not found.</h2>
         )}
       </Wrapper>
       <Newsletter />

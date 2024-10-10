@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"; 
+import { useEffect, useState } from "react";
 import {
   FavoriteBorderOutlined,
   SearchOutlined,
@@ -6,7 +6,7 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import PropTypes from "prop-types"; 
+import PropTypes from "prop-types";
 
 const Info = styled.div`
   opacity: 0;
@@ -49,7 +49,8 @@ const Circle = styled.div`
 `;
 
 const Image = styled.img`
-  height: 75%;
+  height: 60%;
+  max-height: 200px;
   z-index: 2;
 `;
 
@@ -68,17 +69,27 @@ const Icon = styled.div`
     transform: scale(1.1);
   }
 `;
+const ImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
+const Title = styled.div`
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+`;
 const Product = ({ item }) => {
-  const [token, setToken] = useState(null); 
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     console.log("Stored Token im pro:", storedToken);
-    setToken(storedToken); 
-  }, []); 
+    setToken(storedToken);
+  }, []);
 
-  
   const handleAddToCart = () => {
     if (token) {
       console.log("Adding to cart:", item, "with token:", token);
@@ -90,7 +101,10 @@ const Product = ({ item }) => {
   return (
     <Container>
       <Circle />
-      <Image src={item.img} />
+      <ImageContainer>
+        <Image src={item.img} />
+        <Title>{item.title}</Title>
+      </ImageContainer>
       <Info>
         <Icon onClick={handleAddToCart}>
           <ShoppingCartOutlined />
@@ -110,9 +124,9 @@ const Product = ({ item }) => {
 
 Product.propTypes = {
   item: PropTypes.shape({
-    _id: PropTypes.string, 
-    img: PropTypes.string, 
-    title: PropTypes.string, 
+    _id: PropTypes.string,
+    img: PropTypes.string,
+    title: PropTypes.string,
   }),
 };
 

@@ -7,6 +7,9 @@ import Footer from "../components/Footer.jsx";
 import { mobile } from "../responsive.js";
 import { useLocation } from "react-router";
 import { useState, useEffect } from "react";
+//import { useNavigate } from "react-router-dom";
+import { Search } from "@mui/icons-material";
+import axios from 'axios'; 
 
 const Container = styled.div``;
 
@@ -18,7 +21,6 @@ const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
 const Filter = styled.div`
   margin: 20px;
   ${mobile({ width: "0px 20px", display: "flex", flexDirection: "column" })}
@@ -37,6 +39,22 @@ const Select = styled.select`
   ${mobile({ margin: "10px 0px" })}
 `;
 
+const Left = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+`;
+const SearchContainer = styled.div`
+  border: 0.5px solid lightgray;
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+  padding: 5px;
+`;
+const Input = styled.input`
+  border: none;
+`;
+
 const Option = styled.option``;
 
 const ProductList = () => {
@@ -45,11 +63,13 @@ const ProductList = () => {
   const [filters, setFilters] = useState({});
   const query = new URLSearchParams(location.search);
   const search = query.get("search") || "";
-  const [token, setToken] = useState(null); 
+  const [token, setToken] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  //const navigate = useNavigate();
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    setToken(storedToken); 
+    setToken(storedToken);
   }, []);
 
   const getFilterOptions = (category) => {
@@ -267,6 +287,10 @@ const ProductList = () => {
       [e.target.name]: value,
     });
   };
+  // const handleSearchSubmit = (e) => {
+  //   e.preventDefault();
+  //   navigate(`/products/${searchTerm}?search=${searchTerm}`);
+  // };
 
   return (
     <Container>
@@ -274,6 +298,30 @@ const ProductList = () => {
       <Announcement />
       <Title>{cat ? cat.toUpperCase() : "ALL PRODUCTS"}</Title>
       <FilterContainer>
+
+
+
+        <Left>
+          <SearchContainer>
+            <form >
+              <Input
+                placeholder="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button
+                type="submit"
+                style={{ border: "none", background: "none" }}
+              >
+                <Search style={{ color: "gray", fontSize: 16 }} />
+              </button>
+              
+            </form>
+          </SearchContainer>
+        </Left>
+
+
+
         <Filter>
           <FilterText>Filter Products:</FilterText>
           {getFilterOptions(cat)}{" "}

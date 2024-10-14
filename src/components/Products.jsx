@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Product from "./Product.jsx";
 import axios from "axios";
 import PropTypes from "prop-types";
+import SEARCH from "./Search.jsx";
 
 const Container = styled.div`
   padding: 20px;
@@ -12,7 +13,6 @@ const Container = styled.div`
 `;
 
 const Products = ({ cat, filters = {}, token }) => {
-  
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -26,7 +26,7 @@ const Products = ({ cat, filters = {}, token }) => {
       try {
         const url = cat
           ? `${import.meta.env.VITE_API_BASE_URL}/api/products?category=${cat}`
-          : `${import.meta.env.VITE_API_BASE_URL}/api/products`; 
+          : `${import.meta.env.VITE_API_BASE_URL}/api/products`;
 
         const response = await axios.get(url, {
           headers: {
@@ -60,7 +60,7 @@ const Products = ({ cat, filters = {}, token }) => {
       {filteredProducts.length > 0 ? (
         filteredProducts.map((item) => <Product item={item} key={item._id} />)
       ) : (
-        <p>No products found for the selected filters.</p>
+        <p></p>
       )}
     </Container>
   );

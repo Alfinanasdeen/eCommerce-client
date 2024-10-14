@@ -4,12 +4,14 @@ import Announcement from "../components/Announcement.jsx";
 import Products from "../components/Products.jsx";
 import Newsletter from "../components/Newsletter.jsx";
 import Footer from "../components/Footer.jsx";
+
 import { mobile } from "../responsive.js";
 import { useLocation } from "react-router";
 import { useState, useEffect } from "react";
 //import { useNavigate } from "react-router-dom";
-import { Search } from "@mui/icons-material";
-import axios from 'axios'; 
+//import { Search } from "@mui/icons-material";
+
+//import axios from "axios";
 
 const Container = styled.div``;
 
@@ -282,11 +284,13 @@ const ProductList = () => {
 
   const handleFilters = (e) => {
     const value = e.target.value;
+    console.log("Filter selected:", e.target.name, value); // Debugging
     setFilters({
       ...filters,
       [e.target.name]: value,
     });
   };
+
   // const handleSearchSubmit = (e) => {
   //   e.preventDefault();
   //   navigate(`/products/${searchTerm}?search=${searchTerm}`);
@@ -298,12 +302,9 @@ const ProductList = () => {
       <Announcement />
       <Title>{cat ? cat.toUpperCase() : "ALL PRODUCTS"}</Title>
       <FilterContainer>
-
-
-
-        <Left>
+        {/* <Left>
           <SearchContainer>
-            <form >
+            <form>
               <Input
                 placeholder="Search"
                 value={searchTerm}
@@ -315,13 +316,10 @@ const ProductList = () => {
               >
                 <Search style={{ color: "gray", fontSize: 16 }} />
               </button>
-              
             </form>
           </SearchContainer>
-        </Left>
-
-
-
+        </Left> */}
+        {/* <SEARCH /> */}
         <Filter>
           <FilterText>Filter Products:</FilterText>
           {getFilterOptions(cat)}{" "}

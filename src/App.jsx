@@ -15,6 +15,7 @@ import AdminPage from "./pages/AdminPage.jsx";
 import AddProduct from "./pages/AddProduct.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
+import SearchPage from "./components/Search.jsx";
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);
@@ -51,7 +52,10 @@ const App = () => {
             <Route path="/products/:category" element={<ProductList />} />
             <Route path="/products" element={<ProductList />} />
             <Route path="/product/:id" element={<Product />} />
+            <Route path="/search" element={<SearchPage />} />
+
             <Route path="/cart" element={<Cart />} />
+
             <Route path="*" element={<Navigate to="/admin" />} />
           </>
         )}

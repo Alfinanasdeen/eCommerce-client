@@ -32,16 +32,26 @@ const Language = styled.span`
 `;
 
 const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
   display: flex;
   align-items: center;
   margin-left: 25px;
-  padding: 5px;
 `;
 
-const Input = styled.input`
+const SearchButton = styled.button`
+  display: flex;
+  align-items: center;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
   border: none;
-  ${mobile({ width: "50px" })}
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-left: 10px;
+
+  &:hover {
+    background-color: #45a049;
+  }
 `;
 
 const Center = styled.div`
@@ -105,9 +115,9 @@ const Navbar = () => {
     }
   };
 
-  const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    navigate(`/products/${searchTerm}?search=${searchTerm}`);
+  const handleSearchClick = () => {
+    // Navigate to the search page when the button is clicked
+    navigate("/search");
   };
 
   return (
@@ -116,23 +126,16 @@ const Navbar = () => {
         <Left>
           <Language>EN</Language>
           <SearchContainer>
-            <form onSubmit={handleSearchSubmit}>
-              <Input
-                placeholder="Search"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+            <SearchButton onClick={handleSearchClick}>
+              <Search
+                style={{ color: "white", fontSize: 16, marginRight: "5px" }}
               />
-              <button
-                type="submit"
-                style={{ border: "none", background: "none" }}
-              >
-                <Search style={{ color: "gray", fontSize: 16 }} />
-              </button>
-            </form>
+              Search
+            </SearchButton>
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>LAMA.</Logo>
+          <Logo>TRENDLUX.</Logo>
         </Center>
         <Right>
           <Select value={selectedCategory} onChange={handleCategoryChange}>

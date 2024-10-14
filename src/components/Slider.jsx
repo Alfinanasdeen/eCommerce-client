@@ -36,7 +36,7 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   transition: all 1.5s ease;
-  transform: translateX(${(props) => props.slideIndex * -100}vw);
+  transform: translateX(${(props) => props.slideindex * -100}vw);
 `;
 
 const Slide = styled.div`
@@ -78,14 +78,20 @@ const Button = styled.button`
   background-color: transparent;
   cursor: pointer;
 `;
+const scrollToSection = () => {
+  window.scrollTo({
+    top: window.innerHeight + 100, // Adjust this value as needed for how far you want to scroll
+    behavior: "smooth",
+  });
+};
 
 const Slider = () => {
-  const [slideIndex, setSlideIndex] = useState(0);
+  const [slideindex, setslideindex] = useState(0);
   const handleClick = (direction) => {
     if (direction === "left") {
-      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+      setslideindex(slideindex > 0 ? slideindex - 1 : 2);
     } else {
-      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+      setslideindex(slideindex < 2 ? slideindex + 1 : 0);
     }
   };
 
@@ -94,7 +100,7 @@ const Slider = () => {
       <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowLeftOutlined />
       </Arrow>
-      <Wrapper slideIndex={slideIndex}>
+      <Wrapper slideindex={slideindex}>
         {sliderItems.map((item) => (
           <Slide bg={item.bg} key={item.id}>
             <ImgContainer>
@@ -103,7 +109,7 @@ const Slider = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>SHOW NOW</Button>
+              <Button onClick={scrollToSection}>SHOW NOW</Button>
             </InfoContainer>
           </Slide>
         ))}

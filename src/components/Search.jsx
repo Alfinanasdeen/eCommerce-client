@@ -71,11 +71,14 @@ const Search = () => {
   const fetchProducts = async () => {
     try {
       const token = localStorage.getItem("token"); // Retrieve the token from local storage
-      const response = await axios.get("http://localhost:3001/api/products", {
-        headers: {
-          Authorization: token ? token : "", // Include token in the headers
-        },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/products`,
+        {
+          headers: {
+            Authorization: token ? token : "", // Include token in the headers
+          },
+        }
+      );
       console.log("Fetched products:", response.data); // Log the response for debugging
       setData(response.data); // Set all products to data
       setFilteredData(response.data); // Initially set filteredData to all products

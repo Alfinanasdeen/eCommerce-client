@@ -102,7 +102,7 @@ const Search = () => {
       const filtered = data.filter((product) =>
         product.title.toLowerCase().includes(lowerTerm)
       );
-      console.log("Filtered products:", filtered); // Debugging log
+      console.log("Filtered products:", filtered); 
       setFilteredData(filtered);
     } else {
       setFilteredData(data);

@@ -115,8 +115,8 @@ const Navbar = () => {
     }
   };
 
-  const handleSearchClick = () => {
-    // Navigate to the search page when the button is clicked
+  const handleSearchClick = (e) => {
+    e.preventDefault(); 
     navigate("/search");
   };
 

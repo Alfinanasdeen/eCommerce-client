@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Product from "./Product.jsx";
 import axios from "axios";
 import PropTypes from "prop-types";
-import SEARCH from "./Search.jsx";
+//import SEARCH from "./Search.jsx";
 
 const Container = styled.div`
   padding: 20px;

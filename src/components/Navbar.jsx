@@ -7,8 +7,10 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 const Container = styled.div`
-  height: 60px;
-  ${mobile({ height: "50px" })}
+  height: 70px; /* Slightly taller for better aesthetics */
+  background-color: #ffffff; /* Light background for contrast */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  ${mobile({ height: "60px" })}
 `;
 
 const Wrapper = styled.div`
@@ -16,7 +18,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  ${mobile({ padding: "10px 0px" })}
+  ${mobile({ padding: "10px 5px" })}
 `;
 
 const Left = styled.div`
@@ -26,8 +28,9 @@ const Left = styled.div`
 `;
 
 const Language = styled.span`
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
+  font-weight: 500;
   ${mobile({ display: "none" })}
 `;
 
@@ -35,23 +38,27 @@ const SearchContainer = styled.div`
   display: flex;
   align-items: center;
   margin-left: 25px;
+  position: relative; /* Add relative positioning */
 `;
 
 const SearchButton = styled.button`
-  display: flex;
-  align-items: center;
-  background-color: #4caf50;
+  background: linear-gradient(90deg, teal, lightseagreen);
   color: white;
   padding: 10px 20px;
   border: none;
-  cursor: pointer;
-  font-size: 16px;
   border-radius: 5px;
-  margin-left: 10px;
+  cursor: pointer;
+  display: flex; /* Ensure the icon and text align properly */
+  align-items: center;
+  transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #45a049;
+    background: linear-gradient(90deg, lightseagreen, teal);
   }
+`;
+
+const SearchText = styled.span`
+  margin-bottom: 3px; /* Add margin at the bottom of the text */
 `;
 
 const Center = styled.div`
@@ -61,7 +68,9 @@ const Center = styled.div`
 
 const Logo = styled.h1`
   font-weight: bold;
-  ${mobile({ fontSize: "24px" })}
+  font-size: 24px;
+  color: #333; /* Darker color for better readability */
+  ${mobile({ fontSize: "20px" })}
 `;
 
 const Right = styled.div`
@@ -73,16 +82,27 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   margin-left: 25px;
-  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+  font-weight: 500;
+  color: #333; /* Consistent text color */
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #4caf50; /* Change color on hover */
+  }
+
+  ${mobile({ fontSize: "14px", marginLeft: "10px" })}
 `;
 
 const Select = styled.select`
   margin-left: 25px;
-  padding: 5px;
-  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  ${mobile({ fontSize: "14px", marginLeft: "10px" })}
 `;
 
 const categories = [
@@ -116,7 +136,7 @@ const Navbar = () => {
   };
 
   const handleSearchClick = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     navigate("/search");
   };
 
@@ -128,9 +148,9 @@ const Navbar = () => {
           <SearchContainer>
             <SearchButton onClick={handleSearchClick}>
               <Search
-                style={{ color: "white", fontSize: 16, marginRight: "5px" }}
+                style={{ color: "white", fontSize: 16, marginRight: "10px" }}
               />
-              Search
+              <SearchText>Search</SearchText> {/* Wrap the text in a span */}
             </SearchButton>
           </SearchContainer>
         </Left>

@@ -12,6 +12,7 @@ import ProductList from "./pages/ProductList.jsx";
 import Product from "./pages/Product.jsx";
 import Cart from "./pages/Cart.jsx";
 import AdminPage from "./pages/AdminPage.jsx";
+import DeleteProduct from "./pages/AdminDeleteProducts.jsx";
 import AddProduct from "./pages/AddProduct.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
@@ -49,7 +50,7 @@ const App = () => {
             <Route path="/" element={<Home />} />
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/admin/add-product" element={<AddProduct />} />
-            {/* <Route path="/admin/products" element={<AdminProducts />} /> */}
+            <Route path="/admin/deleteProduct" element={<DeleteProduct />} />
             <Route path="/products/:category" element={<ProductList />} />
             <Route path="/products" element={<ProductList />} />
             <Route path="/product/:id" element={<Product />} />

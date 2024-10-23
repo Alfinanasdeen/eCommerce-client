@@ -8,17 +8,17 @@ export const sliderItems = [
   },
   {
     id: 2,
-    img: "https://i.pinimg.com/564x/48/d0/76/48d076dafd7f50994a165e934e47e02e.jpg",
+    img: "https://i.pinimg.com/564x/6d/d6/86/6dd6865aefbb0d1bf4a45518166385cd.jpg",
     title: "ADVANCED ELECTRONIC SYSTEM",
     desc: "Transform your home with 15% OFF on our cutting-edge electronic system! Limited time offer.",
     bg: "#7f7e84",
   },
   {
     id: 3,
-    img: "https://etimg.etb2bimg.com/photo/94147047.cms",
+    img: "https://i.pinimg.com/enabled_hi/564x/5f/12/08/5f12081ecd524102dc9e7205521e0bc9.jpg",
     title: "SMART KITCHEN APPLIANCE",
     desc: "Upgrade your kitchen with 20% OFF on our latest smart appliance! Limited time offer.",
-    bg: "fbf0f4",
+    bg: "#7f7e84",
   },
 ];
 

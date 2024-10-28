@@ -150,7 +150,7 @@ const Navbar = () => {
               <Search
                 style={{ color: "white", fontSize: 16, marginRight: "10px" }}
               />
-              <SearchText>Search</SearchText> {/* Wrap the text in a span */}
+              <SearchText>Search</SearchText> 
             </SearchButton>
           </SearchContainer>
         </Left>

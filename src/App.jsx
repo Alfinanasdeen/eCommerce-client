@@ -16,7 +16,7 @@ import DeleteProduct from "./pages/AdminDeleteProducts.jsx";
 import AddProduct from "./pages/AddProduct.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
-import Search from "./components/search.jsx";
+import Search from "./pages/Search.jsx";
 
 const App = () => {
   const user = useSelector((state) => state.user.currentUser);

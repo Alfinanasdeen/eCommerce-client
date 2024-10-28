@@ -38,7 +38,7 @@ const SearchContainer = styled.div`
   display: flex;
   align-items: center;
   margin-left: 25px;
-  position: relative; /* Add relative positioning */
+  position: relative; 
 `;
 
 const SearchButton = styled.button`
@@ -48,7 +48,7 @@ const SearchButton = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  display: flex; /* Ensure the icon and text align properly */
+  display: flex;
   align-items: center;
   transition: background-color 0.3s ease;
 
@@ -58,7 +58,7 @@ const SearchButton = styled.button`
 `;
 
 const SearchText = styled.span`
-  margin-bottom: 3px; /* Add margin at the bottom of the text */
+  margin-bottom: 3px; 
 `;
 
 const Center = styled.div`
@@ -69,7 +69,7 @@ const Center = styled.div`
 const Logo = styled.h1`
   font-weight: bold;
   font-size: 24px;
-  color: #333; /* Darker color for better readability */
+  color: #333;
   ${mobile({ fontSize: "20px" })}
 `;
 
@@ -86,7 +86,7 @@ const MenuItem = styled.div`
   cursor: pointer;
   margin-left: 25px;
   font-weight: 500;
-  color: #333; /* Consistent text color */
+  color: #333;
   transition: color 0.3s ease;
 
   &:hover {

@@ -51,8 +51,16 @@ const Info = styled.div`
 const Product = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-left: 300px;
-  ${mobile({ flexDirection: "column" })}
+  margin: 50px 150px 50px 250px;
+  padding: 35px;
+  border-radius: 10px;
+  background: ${({ index }) =>
+    index % 2 === 0
+      ? "linear-gradient(90deg, #dff5f1, #c8ede7)"
+      : "linear-gradient(90deg, #e9fefe, #d3f9f6)"};
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+
+  ${mobile({ flexDirection: "column", marginLeft: "0px" })}
 `;
 
 const ProductDetail = styled.div`
@@ -72,13 +80,18 @@ const Details = styled.div`
   justify-content: space-around;
 `;
 
-const ProductName = styled.span`
+const ProductPay = styled.button`
+  padding: 5px 10px;
+  background: linear-gradient(90deg, teal, lightseagreen);
+  color: white;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
-  text-decoration: underline;
-  color: blue;
+  font-size: 20px;
+  margin-top: 40px;
 
   &:hover {
-    color: darkblue;
+    background-color: #0056b3;
   }
 `;
 
@@ -135,8 +148,16 @@ const SummaryItem = styled.div`
 `;
 
 const SummaryItemText = styled.span``;
-
 const SummaryItemPrice = styled.span``;
+
+const ProductName = styled.span`
+  font-size: 25px;
+  font-weight: 800px;
+  color: #333;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+`;
 
 const Button = styled.button`
   width: 100%;
@@ -148,16 +169,24 @@ const Button = styled.button`
 
 const RemoveButton = styled.button`
   padding: 5px 10px;
-  background-color: #ff4d4d;
+  background: linear-gradient(90deg, red, teal, lightseagreen);
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: bold;
   margin-top: 10px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 
   &:hover {
-    background-color: #e60000;
+    background: linear-gradient(90deg, darkred, darkcyan, seagreen);
+    transform: scale(1.05);
+  }
+
+  &:active {
+    background: linear-gradient(90deg, crimson, mediumseagreen, darkslategrey);
+    transform: scale(1);
   }
 `;
 
@@ -188,13 +217,7 @@ const Cart = () => {
                 <ProductDetail>
                   <Image src={product.img} alt={product.title} />
                   <Details>
-                    <Link
-                      to={`/product/${product._id}?quantity=${product.quantity}`}
-                    >
-                      <ProductName>
-                        <b>Product:</b> {product.title}
-                      </ProductName>
-                    </Link>
+                    <ProductName>{product.title}</ProductName>
                     <RemoveButton onClick={() => handleRemove(product._id)}>
                       Remove
                     </RemoveButton>
@@ -202,11 +225,16 @@ const Cart = () => {
                 </ProductDetail>
                 <PriceDetail>
                   <ProductAmountContainer>
-                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <ProductAmount>Quantity: {product.quantity}</ProductAmount>
                   </ProductAmountContainer>
                   <ProductPrice>
                     $ {product.price * product.quantity}
                   </ProductPrice>
+                  <Link
+                    to={`/product/${product._id}?quantity=${product.quantity}`}
+                  >
+                    <ProductPay>Click to Pay</ProductPay>
+                  </Link>
                 </PriceDetail>
               </Product>
             ))}

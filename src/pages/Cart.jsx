@@ -1,12 +1,11 @@
-//import { Add, Remove } from "@mui/icons-material";
-import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { removeProduct } from "../redux/cartRedux";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive.js";
-//import { useEffect, useState } from "react";
-//import { adjustQuantity } from "../redux/cartRedux.js";
 
 const Container = styled.div``;
 
@@ -73,7 +72,15 @@ const Details = styled.div`
   justify-content: space-around;
 `;
 
-const ProductName = styled.span``;
+const ProductName = styled.span`
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+
+  &:hover {
+    color: darkblue;
+  }
+`;
 
 const PriceDetail = styled.div`
   flex: 1;
@@ -139,19 +146,30 @@ const Button = styled.button`
   font-weight: 600;
 `;
 
+const RemoveButton = styled.button`
+  padding: 5px 10px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: #e60000;
+  }
+`;
+
 // Cart Component
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  // const handleQuantityChange = (id, type) => {
-  //   const product = cart.products.find((product) => product._id === id);
-  //   if (type === "inc") {
-  //     dispatch(adjustQuantity({ id, quantity: product.quantity + 1 }));
-  //   } else if (type === "dec" && product.quantity > 1) {
-  //     dispatch(adjustQuantity({ id, quantity: product.quantity - 1 }));
-  //   }
-  // };
+  const handleRemove = (id) => {
+    dispatch(removeProduct(id));
+  };
+
   return (
     <Container>
       <Navbar />
@@ -160,7 +178,7 @@ const Cart = () => {
         <Title>YOUR BAG</Title>
         <Top>
           <TopTexts>
-            <TopText>Shopping Bag({cart.products.length})</TopText>
+            <TopText>Shopping Bag ({cart.products.length})</TopText>
           </TopTexts>
         </Top>
         <Bottom>
@@ -170,9 +188,16 @@ const Cart = () => {
                 <ProductDetail>
                   <Image src={product.img} alt={product.title} />
                   <Details>
-                    <ProductName>
-                      <b>Product:</b> {product.title}
-                    </ProductName>
+                    <Link
+                      to={`/product/${product._id}?quantity=${product.quantity}`}
+                    >
+                      <ProductName>
+                        <b>Product:</b> {product.title}
+                      </ProductName>
+                    </Link>
+                    <RemoveButton onClick={() => handleRemove(product._id)}>
+                      Remove
+                    </RemoveButton>
                   </Details>
                 </ProductDetail>
                 <PriceDetail>

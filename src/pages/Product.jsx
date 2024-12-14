@@ -9,44 +9,62 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
+import Payment from "./Payment.jsx";
 import axios from "axios";
+import { useSearchParams } from "react-router-dom";
 
-const Container = styled.div``;
+const Container = styled.div`
+  background-color: #f5f5f5;
+  font-family: "Arial", sans-serif;
+`;
 
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   ${mobile({ padding: "10px", flexDirection: "column" })}
 `;
 
 const ImgContainer = styled.div`
   flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Image = styled.img`
   width: 100%;
   height: 90vh;
-  object-fit: cover;
+  object-fit: contain;
+  border-radius: 10px;
   ${mobile({ height: "40vh" })}
 `;
 
 const InfoContainer = styled.div`
   flex: 1;
-  padding: 0px 50px;
+  padding: 80px 50px;
   ${mobile({ padding: "10px" })}
 `;
 
 const Title = styled.h1`
-  font-weight: 200;
+  font-weight: bold;
+  font-size: 2.5rem;
+  color: #333;
 `;
 
 const Desc = styled.p`
   margin: 20px 0px;
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #555;
 `;
 
 const Price = styled.span`
-  font-weight: 100;
-  font-size: 40px;
+  font-weight: bold;
+  font-size: 2rem;
+  color: #007b5e;
 `;
 
 const AddContainer = styled.div`
@@ -54,6 +72,7 @@ const AddContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 20px;
   ${mobile({ width: "100%" })}
 `;
 
@@ -61,69 +80,89 @@ const AmountContainer = styled.div`
   display: flex;
   align-items: center;
   font-weight: 700;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 5px 10px;
 `;
 
 const Amount = styled.span`
   width: 30px;
   height: 30px;
-  border-radius: 10px;
-  border: 1px solid teal;
+  border-radius: 50%;
+  border: 1px solid #007b5e;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0px 5px;
+  color: #007b5e;
+  font-weight: bold;
 `;
 
 const Button = styled.button`
   padding: 15px;
-  border: 2px solid teal;
-  background-color: white;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(90deg, lightseagreen, teal, #f5f5f5);
+  color: white;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
 
   &:hover {
-    background-color: #f8f4f4;
+    background-color: #005f46;
+    transform: scale(1.05);
   }
 `;
 
 const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
+  const [searchParams] = useSearchParams();
   const [product, setProduct] = useState({});
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(
+    Number(searchParams.get("quantity")) || 1 // Default to query parameter or 1
+  );
   const dispatch = useDispatch();
 
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  // Fetch product details on mount
   useEffect(() => {
     const fetchProduct = async () => {
       const token = localStorage.getItem("token");
 
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/api/products/find/${id}`, 
+          `${import.meta.env.VITE_API_BASE_URL}/api/products/find/${id}`,
           {
             headers: {
-              Authorization: `Bearer ${token}`, 
+              Authorization: `Bearer ${token}`,
             },
           }
         );
         setProduct(res.data);
+        setTotalAmount(res.data.price * quantity);
       } catch (err) {
         console.error("Failed to fetch product:", err);
       }
     };
     fetchProduct();
-  }, [id]);
+  }, [id, quantity]); // Dependency on quantity ensures updates when it changes
 
+  // Adjust quantity and recalculate total amount
   const handleQuantity = (type) => {
     if (type === "dec") {
-      quantity > 1 && setQuantity(quantity - 1);
+      quantity > 1 && setQuantity((prev) => prev - 1);
     } else {
-      setQuantity(quantity + 1);
+      setQuantity((prev) => prev + 1);
     }
   };
 
+  // Add product to cart with updated quantity
   const handleClick = () => {
     dispatch(addProduct({ ...product, quantity }));
+    alert(`Added ${quantity} of ${product.title} to the cart.`);
   };
 
   return (
@@ -139,15 +178,25 @@ const Product = () => {
             <InfoContainer>
               <Title>{product.title}</Title>
               <Desc>{product.desc}</Desc>
-              <Price>$ {product.price}</Price>
+              <Price>$ {totalAmount}</Price>
               <AddContainer>
                 <AmountContainer>
-                  <Remove onClick={() => handleQuantity("dec")} />
-                  <Amount>{quantity}</Amount>
-                  <Add onClick={() => handleQuantity("inc")} />
+                  <Remove
+                    onClick={() => handleQuantity("dec")}
+                    style={{ cursor: "pointer" }}
+                  />
+                  <Amount>{quantity}</Amount> {/* Displays quantity */}
+                  <Add
+                    onClick={() => handleQuantity("inc")}
+                    style={{ cursor: "pointer" }}
+                  />
                 </AmountContainer>
                 <Button onClick={handleClick}>ADD TO CART</Button>
               </AddContainer>
+              <Payment
+                totalAmount={totalAmount}
+                resetTotalAmount={setTotalAmount}
+              />
             </InfoContainer>
           </>
         ) : (

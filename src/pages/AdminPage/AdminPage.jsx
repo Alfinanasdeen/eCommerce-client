@@ -64,6 +64,15 @@ const AdminPage = () => {
             Delete Existing Product
           </StyledLink>
         </LinkItem>
+        <LinkItem>
+          <StyledLink to="/admin/editProduct">Edit Existing Product</StyledLink>
+        </LinkItem>
+        <LinkItem>
+          <StyledLink to="/admin/customer">Customer Detail</StyledLink>
+        </LinkItem>
+        <LinkItem>
+          <StyledLink to="/admin/cart">Cart Detail</StyledLink>
+        </LinkItem>
       </LinksList>
     </AdminDashboardContainer>
   );

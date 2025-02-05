@@ -89,7 +89,7 @@ const Payment = ({ totalAmount, resetTotalAmount }) => {
   const createOrder = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3003/api/payment/create-order",
+        `${import.meta.env.VITE_API_BASE_URL}/api/payment/create-order`,
         { amount: totalAmount }
       );
       return response.data;
@@ -129,7 +129,7 @@ const Payment = ({ totalAmount, resetTotalAmount }) => {
           response;
         try {
           const verifyResponse = await axios.post(
-            "http://localhost:3003/api/payment/verify-payment",
+            `${import.meta.env.VITE_API_BASE_URL}/api/payment/verify-payment`,
             {
               razorpay_order_id,
               razorpay_payment_id,
@@ -190,8 +190,8 @@ const Payment = ({ totalAmount, resetTotalAmount }) => {
 };
 
 Payment.propTypes = {
-  totalAmount: PropTypes.number.isRequired, // Ensure the totalAmount is a required prop
-  resetTotalAmount: PropTypes.func.isRequired, // Make sure resetTotalAmount is passed from the parent
+  totalAmount: PropTypes.number.isRequired,
+  resetTotalAmount: PropTypes.func.isRequired, 
 };
 
 export default Payment;

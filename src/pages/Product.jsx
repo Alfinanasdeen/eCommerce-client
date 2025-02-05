@@ -160,9 +160,48 @@ const Product = () => {
   };
 
   // Add product to cart with updated quantity
-  const handleClick = () => {
-    dispatch(addProduct({ ...product, quantity }));
-    alert(`Added ${quantity} of ${product.title} to the cart.`);
+  const handleClick = async () => {
+    // Extract userId from localStorage
+    const userData = JSON.parse(localStorage.getItem("persist:root"))?.user;
+    const userId = userData ? JSON.parse(userData).currentUser._id : null;
+
+    // Check if user is logged in
+    if (!userId) {
+      alert("User not logged in. Please log in to add products to your cart.");
+      return;
+    }
+
+    // Proceed to add the product to the cart
+    try {
+      const token = localStorage.getItem("token"); // Get the token from localStorage
+
+      const cartData = {
+        userId, // Include userId
+        products: [
+          {
+            productId: product._id, // Product's unique ID
+            quantity,
+          },
+        ],
+      };
+
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/carts/cart`,
+        cartData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token for authentication
+          },
+        }
+      );
+
+      console.log("Cart updated successfully:", res.data);
+      dispatch(addProduct({ ...product, quantity }));
+      alert(`Added ${quantity} of ${product.title} to the cart.`);
+    } catch (err) {
+      console.error("Error adding product to cart:", err);
+      alert("Failed to add product to cart.");
+    }
   };
 
   return (

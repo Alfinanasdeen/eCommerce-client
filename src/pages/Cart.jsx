@@ -6,6 +6,7 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive.js";
+import axios from "axios";
 
 const Container = styled.div``;
 
@@ -27,15 +28,32 @@ const Top = styled.div`
 `;
 
 const TopTexts = styled.div`
-  ${mobile({ display: "none" })}
+  display: flex;
   justify-content: center;
+  align-items: center;
   margin-left: 300px;
+  gap: 15px;
+  padding: 10px 0;
+  border-bottom: 2px solid #e0e0e0;
+  ${mobile({ display: "none" })}
 `;
 
 const TopText = styled.span`
-  text-decoration: underline;
+  text-decoration: none;
   cursor: pointer;
+  font-size: 20px;
+  color: teal;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
   margin: 0px 10px;
+
+  &:hover {
+    color: lightseagreen;
+    text-shadow: 0px 2px 4px rgba(0, 128, 128, 0.4);
+  }
+
+  &:active {
+    color: darkcyan;
+  }
 `;
 
 const Bottom = styled.div`
@@ -195,8 +213,24 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
-  const handleRemove = (id) => {
-    dispatch(removeProduct(id));
+  // Function to handle product removal
+  const handleRemove = async (id) => {
+    try {
+      // Dispatch the action to remove the product from Redux
+      dispatch(removeProduct(id));
+
+      // Make an API call to remove the product from the backend
+      const token = localStorage.getItem("token");
+      await axios.delete(
+        `${import.meta.env.VITE_API_BASE_URL}/api/carts/cart/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+      console.log("Product removed from cart in the backend");
+    } catch (error) {
+      console.error("Error removing product from cart:", error);
+    }
   };
 
   return (
@@ -218,6 +252,7 @@ const Cart = () => {
                   <Image src={product.img} alt={product.title} />
                   <Details>
                     <ProductName>{product.title}</ProductName>
+                    {/* Remove button calls handleRemove */}
                     <RemoveButton onClick={() => handleRemove(product._id)}>
                       Remove
                     </RemoveButton>

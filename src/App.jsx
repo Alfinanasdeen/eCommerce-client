@@ -11,9 +11,12 @@ import Home from "./pages/Home.jsx";
 import ProductList from "./pages/ProductList.jsx";
 import Product from "./pages/Product.jsx";
 import Cart from "./pages/Cart.jsx";
-import AdminPage from "./pages/AdminPage.jsx";
-import DeleteProduct from "./pages/AdminDeleteProducts.jsx";
-import AddProduct from "./pages/AddProduct.jsx";
+import AddProduct from "./pages/AdminPage/AddProduct.jsx";
+import AdminPage from "./pages/AdminPage/AdminPage.jsx";
+import DeleteProduct from "./pages/AdminPage/AdminDeleteProducts.jsx";
+import EditProduct from "./pages/AdminPage/AdminEditProduct.jsx";
+import ViewCostomer from "./pages/AdminPage/viewCostomer.jsx";
+import AdminCartList from "./pages/AdminPage/AdminCartList.jsx";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Search from "./pages/Search.jsx";
@@ -51,6 +54,9 @@ const App = () => {
             <Route path="/admin" element={<AdminPage />} />
             <Route path="/admin/add-product" element={<AddProduct />} />
             <Route path="/admin/deleteProduct" element={<DeleteProduct />} />
+            <Route path="/admin/editProduct" element={<EditProduct />} />
+            <Route path="/admin/customer" element={<ViewCostomer />} />
+            <Route path="/admin/cart" element={<AdminCartList />} />
             <Route path="/products/:category" element={<ProductList />} />
             <Route path="/search" element={<Search />} />
             <Route path="/products" element={<ProductList />} />

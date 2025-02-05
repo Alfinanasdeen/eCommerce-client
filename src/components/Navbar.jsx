@@ -1,5 +1,4 @@
-import { Badge } from "@mui/icons-material";
-import { Search, ShoppingCartOutlined } from "@mui/icons-material";
+import { Search, ShoppingCartOutlined, Badge } from "@mui/icons-material";
 import { useState } from "react";
 import styled from "styled-components";
 import { mobile } from "../responsive.js";
@@ -7,9 +6,9 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 const Container = styled.div`
-  height: 70px; /* Slightly taller for better aesthetics */
-  background-color: #ffffff; /* Light background for contrast */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  height: 70px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   ${mobile({ height: "60px" })}
 `;
 
@@ -38,7 +37,6 @@ const SearchContainer = styled.div`
   display: flex;
   align-items: center;
   margin-left: 25px;
-  position: relative; 
 `;
 
 const SearchButton = styled.button`
@@ -58,7 +56,7 @@ const SearchButton = styled.button`
 `;
 
 const SearchText = styled.span`
-  margin-bottom: 3px; 
+  margin-bottom: 3px;
 `;
 
 const Center = styled.div`
@@ -90,9 +88,8 @@ const MenuItem = styled.div`
   transition: color 0.3s ease;
 
   &:hover {
-    color: #4caf50; /* Change color on hover */
+    color: #4caf50;
   }
-
   ${mobile({ fontSize: "14px", marginLeft: "10px" })}
 `;
 
@@ -122,8 +119,7 @@ const categories = [
 ];
 
 const Navbar = () => {
-  const quantity = useSelector((state) => state.cart.quantity);
-  const [searchTerm, setSearchTerm] = useState("");
+  const cart = useSelector((state) => state.cart); // Get the cart state from Redux
   const [selectedCategory, setSelectedCategory] = useState("");
   const navigate = useNavigate();
 
@@ -150,7 +146,7 @@ const Navbar = () => {
               <Search
                 style={{ color: "white", fontSize: 16, marginRight: "10px" }}
               />
-              <SearchText>Search</SearchText> 
+              <SearchText>Search</SearchText>
             </SearchButton>
           </SearchContainer>
         </Left>
@@ -167,7 +163,17 @@ const Navbar = () => {
           </Select>
           <Link to="/cart">
             <MenuItem>
-              <Badge badgeContent={quantity} color="primary">
+              <Badge
+                badgeContent={cart.products.length || 0} // Ensure default value
+                color="primary"
+                sx={{
+                  "& .MuiBadge-badge": {
+                    fontSize: "12px",
+                    backgroundColor: cart.products.length > 0 ? "teal" : "gray",
+                    color: "white", // Ensure visibility of badge content
+                  },
+                }}
+              >
                 <ShoppingCartOutlined />
               </Badge>
             </MenuItem>

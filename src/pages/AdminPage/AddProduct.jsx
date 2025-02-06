@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { mobile,smallMobile, tablet } from "../../responsive.js";
 
 const Wrapper = styled.div`
   display: flex;
@@ -9,10 +10,28 @@ const Wrapper = styled.div`
   height: 100vh;
   justify-content: center;
   padding: 20px;
+  ${tablet`
+    padding: 15px;
+  `}
+
+  ${mobile`
+    padding: 10px;
+  `}
 `;
 
 const Container = styled.div`
   width: 500px;
+   ${tablet`
+    width: 80%;
+  `}
+
+  ${mobile`
+    width: 90%;
+  `}
+
+  ${smallMobile`
+    width: 95%;
+  `}
 `;
 
 const Form = styled.form`
@@ -24,11 +43,29 @@ const Form = styled.form`
 const Input = styled.input`
   padding: 10px;
   font-size: 16px;
+  ${tablet`
+    padding: 10px;
+    font-size: 14px;
+  `}
+
+  ${mobile`
+    padding: 8px;
+    font-size: 14px;
+  `}
 `;
 
 const Select = styled.select`
   padding: 10px;
   font-size: 16px;
+  ${tablet`
+    padding: 10px;
+    font-size: 14px;
+  `}
+
+  ${mobile`
+    padding: 8px;
+    font-size: 14px;
+  `}
 `;
 
 const Option = styled.option`
@@ -46,6 +83,15 @@ const Button = styled.button`
   &:hover {
     background-color: darkcyan;
   }
+  ${tablet`
+    padding: 10px;
+    font-size: 14px;
+  `}
+
+  ${mobile`
+    padding: 8px;
+    font-size: 14px;
+  `}
 `;
 
 const AddProduct = () => {

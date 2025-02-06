@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { mobile, tablet } from "../responsive.js";
 
 const Container = styled.div`
   display: flex;
@@ -16,12 +17,15 @@ const Container = styled.div`
   max-width: 500px;
   margin: 150px 400px 60px 0px;
   font-family: "Arial", sans-serif;
+  ${mobile({ padding: "15px", margin: "50px auto" })};
+  ${tablet({ margin: "80px auto" })};
 `;
 
 const Title = styled.h2`
   color: #333;
   font-size: 1.8rem;
   margin-bottom: 20px;
+   ${mobile({ fontSize: "1.5rem" })};
 `;
 
 const Form = styled.form`
@@ -191,7 +195,7 @@ const Payment = ({ totalAmount, resetTotalAmount }) => {
 
 Payment.propTypes = {
   totalAmount: PropTypes.number.isRequired,
-  resetTotalAmount: PropTypes.func.isRequired, 
+  resetTotalAmount: PropTypes.func.isRequired,
 };
 
 export default Payment;

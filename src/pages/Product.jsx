@@ -4,7 +4,7 @@ import Announcement from "../components/Announcement.jsx";
 import Footer from "../components/Footer.jsx";
 import Navbar from "../components/Navbar.jsx";
 import Newsletter from "../components/Newsletter.jsx";
-import { mobile } from "../responsive.js";
+import { mobile, tablet } from "../responsive.js";
 import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { addProduct } from "../redux/cartRedux";
@@ -24,7 +24,8 @@ const Wrapper = styled.div`
   background-color: #ffffff;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  ${mobile({ padding: "10px", flexDirection: "column" })}
+  ${tablet({ padding: "30px", flexDirection: "column" })}
+  ${mobile({ padding: "15px", flexDirection: "column" })}
 `;
 
 const ImgContainer = styled.div`
@@ -39,19 +40,23 @@ const Image = styled.img`
   height: 90vh;
   object-fit: contain;
   border-radius: 10px;
-  ${mobile({ height: "40vh" })}
+  ${tablet({ maxHeight: "60vh" })}
+  ${mobile({ maxHeight: "40vh" })}
 `;
 
 const InfoContainer = styled.div`
   flex: 1;
   padding: 80px 50px;
-  ${mobile({ padding: "10px" })}
+  ${tablet({ padding: "40px 30px" })}
+  ${mobile({ padding: "20px 10px" })}
 `;
 
 const Title = styled.h1`
   font-weight: bold;
   font-size: 2.5rem;
   color: #333;
+  ${tablet({ fontSize: "2rem" })}
+  ${mobile({ fontSize: "1.5rem" })}
 `;
 
 const Desc = styled.p`
@@ -59,12 +64,16 @@ const Desc = styled.p`
   font-size: 1.2rem;
   line-height: 1.6;
   color: #555;
+  ${tablet({ fontSize: "1rem" })}
+  ${mobile({ fontSize: "0.9rem" })}
 `;
 
 const Price = styled.span`
   font-weight: bold;
   font-size: 2rem;
   color: #007b5e;
+  ${tablet({ fontSize: "1.8rem" })}
+  ${mobile({ fontSize: "1.5rem" })}
 `;
 
 const AddContainer = styled.div`
@@ -73,7 +82,8 @@ const AddContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: 20px;
-  ${mobile({ width: "100%" })}
+  ${tablet({ width: "70%" })}
+  ${mobile({ width: "100%", flexDirection: "column", alignItems: "center" })}
 `;
 
 const AmountContainer = styled.div`
@@ -108,6 +118,7 @@ const Button = styled.button`
   font-weight: bold;
   text-transform: uppercase;
   transition: all 0.3s ease;
+  ${mobile({ padding: "12px", fontSize: "0.9rem", width: "100%" })}
 
   &:hover {
     background-color: #005f46;

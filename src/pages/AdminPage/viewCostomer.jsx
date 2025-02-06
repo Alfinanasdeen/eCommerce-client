@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { mobile, smallMobile, tablet } from "../../responsive.js";
 
 const Container = styled.div`
   max-width: 1000px;
@@ -9,17 +10,42 @@ const Container = styled.div`
   background-color: #f4f4f4;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+  ${tablet`
+    max-width: 90%;
+    padding: 15px;
+  `}
+
+  ${mobile`
+    padding: 10px;
+  `}
 `;
 
 const Title = styled.h1`
   text-align: center;
   font-size: 2rem;
   color: #333;
+  ${tablet`
+    font-size: 1.75rem;
+  `}
+
+  ${mobile`
+    font-size: 1.5rem;
+  `}
+
+  ${smallMobile`
+    font-size: 1.3rem;
+  `}
 `;
 
 const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
+  ${mobile`
+    
+    overflow-x: auto;
+    white-space: nowrap;
+  `}
 `;
 
 const TableHeader = styled.thead`
@@ -30,10 +56,20 @@ const TableHeaderCell = styled.th`
   padding: 12px;
   text-align: left;
   border: 1px solid #ddd;
+
+  ${mobile`
+    padding: 8px;
+    font-size: 0.9rem;
+  `}
+
+  ${smallMobile`
+    font-size: 0.8rem;
+  `}
 `;
 
 const TableRow = styled.tr`
   background-color: #fff;
+
   &:nth-child(even) {
     background-color: #f9f9f9;
   }
@@ -42,6 +78,14 @@ const TableRow = styled.tr`
 const TableCell = styled.td`
   padding: 12px;
   border: 1px solid #ddd;
+  ${mobile`
+    padding: 8px;
+    font-size: 0.9rem;
+  `}
+
+  ${smallMobile`
+    font-size: 0.8rem;
+  `}
 `;
 
 const DeleteButton = styled.button`
@@ -56,6 +100,14 @@ const DeleteButton = styled.button`
   &:hover {
     background-color: darkred;
   }
+  ${mobile`
+    padding: 6px 10px;
+    font-size: 0.9rem;
+  `}
+
+  ${smallMobile`
+    font-size: 0.8rem;
+  `}
 `;
 
 const ViewCustomers = () => {
@@ -100,7 +152,7 @@ const ViewCustomers = () => {
             },
           }
         );
-        setCustomers(customers.filter((customer) => customer._id !== id)); 
+        setCustomers(customers.filter((customer) => customer._id !== id));
         alert("Customer deleted successfully");
       } catch (error) {
         console.error("Error deleting customer:", error);

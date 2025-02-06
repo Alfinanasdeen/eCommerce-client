@@ -1,7 +1,7 @@
 import { Search, ShoppingCartOutlined, Badge } from "@mui/icons-material";
 import { useState } from "react";
 import styled from "styled-components";
-import { mobile } from "../responsive.js";
+import { mobile, smallMobile, tablet } from "../responsive.js";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -9,7 +9,9 @@ const Container = styled.div`
   height: 70px;
   background-color: #ffffff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  ${tablet({ height: "65px" })}
   ${mobile({ height: "60px" })}
+  ${smallMobile({ height: "55px" })}
 `;
 
 const Wrapper = styled.div`
@@ -17,7 +19,9 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  ${tablet({ padding: "10px 15px" })}
   ${mobile({ padding: "10px 5px" })}
+  ${smallMobile({ padding: "8px 5px" })}
 `;
 
 const Left = styled.div`
@@ -37,6 +41,9 @@ const SearchContainer = styled.div`
   display: flex;
   align-items: center;
   margin-left: 25px;
+  ${tablet({ marginLeft: "15px" })}
+  ${mobile({ marginLeft: "10px" })}
+  ${smallMobile({ marginLeft: "5px" })}
 `;
 
 const SearchButton = styled.button`
@@ -49,6 +56,9 @@ const SearchButton = styled.button`
   display: flex;
   align-items: center;
   transition: background-color 0.3s ease;
+  ${tablet({ padding: "8px 18px" })}
+  ${mobile({ padding: "8px 15px" })}
+  ${smallMobile({ padding: "6px 12px" })}
 
   &:hover {
     background: linear-gradient(90deg, lightseagreen, teal);
@@ -57,6 +67,7 @@ const SearchButton = styled.button`
 
 const SearchText = styled.span`
   margin-bottom: 3px;
+  ${mobile({ display: "none" })}
 `;
 
 const Center = styled.div`
@@ -68,7 +79,9 @@ const Logo = styled.h1`
   font-weight: bold;
   font-size: 24px;
   color: #333;
+  ${tablet({ fontSize: "22px" })}
   ${mobile({ fontSize: "20px" })}
+  ${smallMobile({ fontSize: "18px" })}
 `;
 
 const Right = styled.div`
@@ -90,7 +103,9 @@ const MenuItem = styled.div`
   &:hover {
     color: #4caf50;
   }
+  ${tablet({ fontSize: "15px", marginLeft: "20px" })}
   ${mobile({ fontSize: "14px", marginLeft: "10px" })}
+  ${smallMobile({ fontSize: "13px", marginLeft: "8px" })}
 `;
 
 const Select = styled.select`
@@ -99,7 +114,9 @@ const Select = styled.select`
   border-radius: 5px;
   border: 1px solid #ddd;
   font-size: 16px;
-  ${mobile({ fontSize: "14px", marginLeft: "10px" })}
+  ${tablet({ fontSize: "15px", marginLeft: "15px", padding: "8px" })}
+  ${mobile({ fontSize: "14px", marginLeft: "10px", padding: "6px" })}
+  ${smallMobile({ fontSize: "13px", marginLeft: "5px", padding: "5px" })}
 `;
 
 const categories = [

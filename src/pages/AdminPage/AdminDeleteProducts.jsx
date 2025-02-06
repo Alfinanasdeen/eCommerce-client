@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import { mobile, smallMobile, tablet } from "../../responsive.js";
 
 const Container = styled.div`
   max-width: 800px;
@@ -9,12 +10,34 @@ const Container = styled.div`
   background-color: #f4f4f4;
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+
+  ${tablet`
+    max-width: 90%;
+    padding: 15px;
+  `}
+
+  ${mobile`
+    max-width: 95%;
+    padding: 10px;
+  `}
 `;
 
 const Title = styled.h1`
   text-align: center;
   font-size: 2rem;
   color: #333;
+
+  ${tablet`
+    font-size: 1.8rem;
+  `}
+
+  ${mobile`
+    font-size: 1.5rem;
+  `}
+
+  ${smallMobile`
+    font-size: 1.3rem;
+  `}
 `;
 
 const ProductList = styled.ul`
@@ -35,23 +58,53 @@ const ProductItem = styled.li`
   &:hover {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
+
+  ${tablet`
+    padding: 8px;
+  `}
+
+  ${mobile`
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+  `}
 `;
 
 const ProductImage = styled.img`
-  width: 100px; /* Fixed width */
-  height: 100px; /* Fixed height */
-  object-fit: cover; /* Maintain aspect ratio, cover the area */
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
   border-radius: 4px;
   margin-right: 15px;
+
+  ${mobile`
+    margin-bottom: 10px;
+  `}
 `;
 
 const ProductDetails = styled.div`
-  flex-grow: 1; /* Allow the details section to grow */
+  flex-grow: 1;
+  ${mobile`
+    width: 100%;
+  `}
 `;
 
 const ProductTitle = styled.h2`
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   color: #333;
+  ${tablet`
+    font-size: 1.3rem;
+  `}
+
+  ${mobile`
+    font-size: 0.9rem;
+    margin-bottom:10px
+  `}
+
+  ${smallMobile`
+    font-size: 1rem;
+  `}
 `;
 
 const DeleteButton = styled.button`
@@ -66,11 +119,23 @@ const DeleteButton = styled.button`
   &:hover {
     background-color: #ff1a1a;
   }
+  ${mobile`
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  `}
+
+  ${smallMobile`
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  `}
 `;
 
 const NoProductsMessage = styled.p`
   text-align: center;
   color: #666;
+  ${mobile`
+    font-size: 0.9rem;
+  `}
 `;
 
 const DeleteProduct = () => {
